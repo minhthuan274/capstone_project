@@ -17,3 +17,16 @@ User.create!(name:  "Minh Thuan",
                activated: true,
                activated_at: Time.zone.now)
 end
+
+69.times do |n|
+  title     = Faker::Book.title
+  author    = Faker::Book.author
+  publisher = Faker::Book.publisher
+  quantity  = Faker::Number.between(1, 15)
+  year      = Faker::Number.between(0, 2017)
+  Book.create!(title:      title,
+              author:     author,
+              publisher:  publisher,
+              quantity:   quantity
+              year:       year)
+end
