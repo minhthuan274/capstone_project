@@ -1,2 +1,22 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<% provide(:title, "All books") %>
+
+<section>
+  <h1>All books</h1>
+  <table class="table-responsive bordered highlight centered hoverable z-depth-2">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Title</th>
+        <th>Publisher</th>
+        <th>Year</th>
+        <th>Quantity</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= render @books %>
+    </tbody>
+  </table>
+</section>

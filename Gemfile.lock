@@ -237,6 +237,8 @@ GEM
     lumberjack (1.0.11)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    materialize-sass (0.98.1)
+      sass (~> 3.3)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -364,6 +366,7 @@ DEPENDENCIES
   jbuilder (= 2.4.1)
   jquery-rails (= 4.1.1)
   listen (= 3.0.8)
+  materialize-sass
   mini_magick (= 4.5.1)
   minitest-reporters (= 1.1.9)
   pg (= 0.18.4)

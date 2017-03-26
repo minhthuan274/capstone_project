@@ -1,0 +1,10 @@
+<tr>
+  <td><%= book.id %></td>
+  <td><%= link_to book.title, book %></td>
+  <td><%= book.publisher %></td>
+  <td><%= book.year %></td>
+  <td><%= book.quantity %></td>
+  <td>
+    <button class="btn waves-effect waves-light yellow" id="book_borrowed_<%= book.id %>">Borrowed</button>
+  </td>
+</tr>
