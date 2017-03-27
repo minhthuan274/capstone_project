@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
-  before_action :current_user_admin?     only: [:new, :create, :edit, :update, :destroy]
+  before_action :current_user_admin?,    only: [:new, :create, :edit, :update, :destroy]
 
 
   def index
@@ -54,6 +54,7 @@ class BooksController < ApplicationController
       unless current_user.admin?
         flash[:danger] = "You's not got enouch permision to do it."
         redirect_to root_url
+      end
     end
 
     def book_params
