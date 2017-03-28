@@ -2,7 +2,7 @@
 
 <section>
   <h1>All books</h1>
-  <table class="table-responsive bordered highlight centered hoverable z-depth-2">
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>id</th>
@@ -19,4 +19,5 @@
       <%= render @books %>
     </tbody>
   </table>
+  <%= will_paginate %>
 </section>

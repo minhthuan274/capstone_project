@@ -4,7 +4,19 @@
   <td><%= book.publisher %></td>
   <td><%= book.year %></td>
   <td><%= book.quantity %></td>
-  <td>
-    <button class="btn waves-effect waves-light green" id="book_borrowed_<%= book.id %>">Borrowed</button>
-  </td>
+
+  <% if current_user.admin? %>
+    <td>
+      <%= link_to "Edit", edit_book_path(book), class: 'btn btn-primary' %>
+    </td>
+    <td>
+      <%= link_to "Delete", book, method: :delete, 
+                                  data: { confirm: "You sure?" },
+                                  class: 'btn btn-danger' %>
+    </td>
+  <% else %>
+    <td>
+    <button class="btn" id="book_borrowed_<%= book.id %>">Borrowed</button>
+    </td>
+  <% end %>
 </tr>

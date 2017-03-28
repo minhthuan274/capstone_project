@@ -67,10 +67,6 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
-  def admin?
-    self.admin
-  end
-
   private 
     def downcase_email
       email.downcase!

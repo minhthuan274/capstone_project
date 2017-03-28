@@ -1,10 +1,12 @@
 class BooksController < ApplicationController
 
-  before_action :current_user_admin?,    only: [:new, :create, :edit, :update, :destroy]
+  before_action :current_user_admin?,    only: [:new, :create, :edit, 
+                                                :update, :destroy]
 
 
   def index
-    @books = Book.search(params[:search])
+    @books = Book.search(params[:search]).paginate(page: params[:page],
+                                                   per_page: 10)
   end
 
   def show
@@ -58,6 +60,6 @@ class BooksController < ApplicationController
     end
 
     def book_params
-      params.require(:book).permit(:title, :year, :publisher, :author)
+      params.require(:book).permit(:title, :year, :publisher, :author, :quantity)
     end
 end
