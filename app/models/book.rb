@@ -25,4 +25,13 @@ class Book < ApplicationRecord
   def available?
     self.availability > 0
   end
+
+  def get_due_time(user)
+    Borrowing.find_by(user_id: user.id, book_id: self.id)
+             .due_time.strftime("%b %d %y")
+  end
+
+  def has_expired?(user)
+    get_due_time(user) > Time.zone.now
+  end
 end

@@ -1,0 +1,31 @@
+<h3>All books are being borrowed</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Due date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr class="<%= '.danger' if book.has_expired?(current_user) %>">
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.get_due_time(current_user) %></td>
+        <% if book.has_expired?(current_user) %>
+          <td>
+            <%= form_for book.get_borrowing(current_user), method: :patch do |f|%>
+              <%= hidden_field_tag :extend, true %>
+              <%= hidden_field_tag :user_id, current_user.id %>
+              <%= hidden_field_tag :book_id, book.id %>
+              <input type="number" name="extension_day" placeholder="Enter extention day">
+              <%= f.submit "Extend", class: "btn btn-primary" %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

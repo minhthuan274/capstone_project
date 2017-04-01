@@ -22,4 +22,8 @@ class Borrowing < ApplicationRecord
     end
   end
 
+  def expired?
+    self.due_time > Time.zone.now
+  end
+
 end

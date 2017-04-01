@@ -1,9 +1,9 @@
 <% provide(:title, "Capstone home") %>
 <% if logged_in? %>
     <% if current_user_admin? %>
-      <%= render 'librian' %>
+      <%= render 'table_librarian' %>
     <% else %>
-      
+      <%= render 'table_user' %>
     <% end %>
 <% else %>
   <div class="center jumbotron">

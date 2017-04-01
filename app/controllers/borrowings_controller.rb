@@ -37,7 +37,6 @@ class BorrowingsController < ApplicationController
       flash[:danger] = "You did something wrong!"    
     end
     redirect_to root_url
-      
   end
 
   def destroy 
