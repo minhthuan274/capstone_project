@@ -1,0 +1,40 @@
+<h3>All books are being borrowed</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>User</th>
+      <th>Due date</th>
+      <th>Request</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% get_borrowings.each do |e| %>
+      <tr>
+        <th><%= Book.find_by(id: e.book_id).title %></th>
+        <th><%= Book.find_by(id: e.book_id).author %></th>
+        <th><%= User.find_by(id: e.user_id).name %></th>
+        <th><%= e.due_time %></th>
+        <th><%=  %></th>
+        <th>
+          <%= form_for e, method: :patch do |f| %>
+            <%= hidden_field_tag :verify, true %>
+            <%= hidden_field_tag :user_id, e.user_id %>
+            <%= hidden_field_tag :book_id, e.book_id %>
+            <%= f.submit "Approve", class: 'btn btn-primary' %>
+          <% end %>
+        </th>
+        <th>
+          <%= form_for e, method: :delete do |f| %>
+            <%= hidden_field_tag :deny_verify, true %>
+            <%= hidden_field_tag :user_id, e.user_id %>
+            <%= hidden_field_tag :book_id, e.book_id %>
+            <%= f.submit "Deny", class: 'btn btn-warning' %>
+          <% end %>
+        </th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>    

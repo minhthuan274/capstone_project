@@ -34,6 +34,12 @@ module SessionsHelper
     !!current_user
   end
 
+
+  def current_user_admin?
+    return false unless logged_in?
+    current_user.admin
+  end
+
   # Log out the current user 
   def log_out 
     forget(current_user)

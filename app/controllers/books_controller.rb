@@ -3,6 +3,8 @@ class BooksController < ApplicationController
   before_action :current_user_admin?,    only: [:new, :create, :edit, 
                                                 :update, :destroy]
 
+  before_action :get_book,               only: [:show, :edit, :update, :destroy]
+
 
   def index
     @books = Book.search(params[:search]).paginate(page: params[:page],
@@ -10,7 +12,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])
+    session[:book_id] = params[:id]
   end
 
   def new
@@ -24,6 +26,7 @@ class BooksController < ApplicationController
       @book.save
     else
       @book = Book.new(book_params)
+      @book.availability = @book.quantity
       if @book.save 
         flash[:success] = "This book has been added."
         redirect_to @book
@@ -34,11 +37,9 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book = Book.find(params[:id])
   end
 
   def update
-    @book = Book.find(params[:id])
     if @book.update_attributes(book_params)
       flash[:success] = "This book has been updated."
       redirect_to @book
@@ -61,5 +62,9 @@ class BooksController < ApplicationController
 
     def book_params
       params.require(:book).permit(:title, :year, :publisher, :author, :quantity)
+    end
+
+    def get_book
+      @book = Book.find(params[:id])
     end
 end

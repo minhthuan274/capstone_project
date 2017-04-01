@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :books
+  resources :borrowings,          only: [:index, :create, :update, :destroy]
 end

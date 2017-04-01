@@ -1,1 +1,66 @@
+<% provide(:title, @book.title) %>
+<div class="book-detail">
+  <div class="row">
+    <div class="col-md-4">
+      <section class="book-cover">
+        <div class="rectangle"></div>
+      </section>
+      
+      <% if logged_in? %>
+      <% unless current_user_admin? %>
+        <% if borrowing = Borrowing.find_by(user_id: current_user.id, 
+                                            book_id: current_book.id) %>
+            <% if !borrowing.verified? %>
+                <%= render 'cancel' %>
+            <% else %>
+                <%= render 'extend' %>
+            <% end %>
+        <% else %>
+            <% if @book.available? %>
+              <%= render 'borrow' %>
+            <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to "Edit this book", edit_book_path, class: 'btn btn-primary' %>
+      <% end %>
+      <% end %>
+
+
+    </div>
+
+    <div class="col-md-8">
+      <section class="book-info">
+        <%= @book.title %> by The <%= @book.author %>
+      </section>
+
+      <section class="">
+        Available: <%= @book.availability %>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div>
+  <% if @book.borrowings.count == 0 %>
+    <h4>No one has borrowed this book.</h4>
+  <% else %>
+  <h3>People are borrowing this book</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Due Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @book.borrowings.each do |f| %>
+        <tr>
+          <td><%= link_to User.find(f.user_id).name %></td>
+          <td><%= f.due_time.strftime("%b %e %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table> 
+  <% end %>       
+</div>
 

@@ -1,12 +1,19 @@
 <% provide(:title, "Capstone home") %>
-<div class="center jumbotron">
-  <h1>Welcome to Capstone Library</h1>
+<% if logged_in? %>
+    <% if current_user_admin? %>
+      <%= render 'librian' %>
+    <% else %>
+      
+    <% end %>
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to Capstone Library</h1>
 
-  <h2>
-    This is the home page for the
-    <a href="http://www.railstutorial.org/">Capstone Library</a>
-    application.
-  </h2>
-
-  <%= link_to "Sign up now!", signup_path , class: "btn btn-lg btn-primary" %>
-</div>
+    <h2>
+      This is the home page for the
+      <a href="http://www.railstutorial.org/">Capstone Library</a>
+      application.
+    </h2>
+    <%= link_to "Sign up now!", signup_path , class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>     

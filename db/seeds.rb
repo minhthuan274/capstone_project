@@ -19,14 +19,16 @@ User.create!(name:  "Minh Thuan",
 end
 
 69.times do |n|
-  title     = Faker::Book.title
-  author    = Faker::Book.author
-  publisher = Faker::Book.publisher
-  quantity  = Faker::Number.between(1, 15)
-  year      = Faker::Number.between(-1, 2017)
+  title        = Faker::Book.title
+  author       = Faker::Book.author
+  publisher    = Faker::Book.publisher
+  quantity     = Faker::Number.between(1, 15)
+  availability = quantity
+  year         = Faker::Number.between(-1, 2017)
   Book.create!(title:      title,
               author:     author,
               publisher:  publisher,
               quantity:   quantity,
+              availability: availability,
               year:       year)
 end

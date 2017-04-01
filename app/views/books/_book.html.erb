@@ -3,7 +3,7 @@
   <td><%= link_to book.title, book %></td>
   <td><%= book.publisher %></td>
   <td><%= book.year %></td>
-  <td><%= book.quantity %></td>
+  <td><%= book.availability %></td>
 
   <% if current_user.admin? %>
     <td>
@@ -16,7 +16,7 @@
     </td>
   <% else %>
     <td>
-    <button class="btn" id="book_borrowed_<%= book.id %>">Borrowed</button>
+      
     </td>
   <% end %>
 </tr>
