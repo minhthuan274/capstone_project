@@ -11,7 +11,7 @@
         <% if borrowing = Borrowing.find_by(user_id: current_user.id, 
                                             book_id: current_book.id) %>
             <% if !borrowing.verified? %>
-                <%= render 'cancel' %>
+                <%= render 'shared/cancel', object: borrowing %>
             <% else %>
                 <%= render 'extend' %>
             <% end %>

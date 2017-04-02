@@ -1,5 +1,0 @@
-<%= link_to"Cancel", Borrowing.find_by(user_id: current_user.id,
-                                        book_id: current_book.id),
-                      method: :delete,
-                      data: { confirm: "You sure?" },
-                      class: 'btn btn-warning' %>

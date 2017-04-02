@@ -1,8 +1,9 @@
 class BorrowingsController < ApplicationController
 
+  before_action :logged_in?,            only: [:create, :update, :destroy]
   before_action :get_user_and_book,     only: [:create, :update, :destroy]
-  before_action :current_user_admin?,   only: [:update]
-  before_action :get_borrowing,         only: [:update]
+  before_action :admin_user,            only: [:update]
+  before_action :get_borrowing,         only: [:update, :destroy]
   
 
   def index
@@ -40,10 +41,17 @@ class BorrowingsController < ApplicationController
   end
 
   def destroy 
-    if current_user.admin? #only deny request borrow book and request extend
+    if current_user_admin? #only deny request borrow book and request extend
       
     else
-      
+      if current_user?(User.find_by(id: params[:user_id]))
+        @borrowing.destroy
+        flash[:success] = "Your request has been cancel"
+        redirect_to Book.find_by(id: params[:book_id])
+      else
+        flash[:danger] = "You did something you are not allowed."
+        redirect_to root_url
+      end
     end
   end
 
@@ -57,5 +65,10 @@ class BorrowingsController < ApplicationController
     def get_borrowing
       @borrowing = Borrowing.find_by(user_id: params[:user_id], 
                                      book_id: params[:book_id])
+    end
+
+    # Confirm the admin user.
+    def admin_user
+      redirect_to root_url unless current_user.admin?
     end
 end
