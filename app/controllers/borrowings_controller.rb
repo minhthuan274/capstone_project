@@ -42,7 +42,8 @@ class BorrowingsController < ApplicationController
 
   def destroy 
     if current_user_admin? #only deny request borrow book and request extend
-      
+      @borrowing.destroy
+      redirect_to root_url
     else
       if current_user?(User.find_by(id: params[:user_id]))
         @borrowing.destroy

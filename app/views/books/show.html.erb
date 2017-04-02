@@ -12,8 +12,8 @@
                                             book_id: current_book.id) %>
             <% if !borrowing.verified? %>
                 <%= render 'shared/cancel', object: borrowing %>
-            <% else %>
-                <%= render 'extend' %>
+            <% elsif @book.has_expired?(current_user) %>
+                <%= render 'shared/extend', object: borrowing %>
             <% end %>
         <% else %>
             <% if @book.available? %>
@@ -54,7 +54,7 @@
     </thead>
     <tbody>
       <% @book.borrowings.each do |f| %>
-        <tr>
+        <tr class="<%= 'danger' if @book.has_expired?(User.find(f.user_id)) %>">
           <td><%= link_to User.find(f.user_id).name %></td>
           <td><%= f.due_time.strftime("%b %e %Y") %></td>
         </tr>

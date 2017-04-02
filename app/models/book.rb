@@ -34,7 +34,7 @@ class Book < ApplicationRecord
 
   # Checks this book, whichs be borrowed by user, has expried ?
   def has_expired?(user)
-    get_due_time(user) > Time.zone.now
+    get_due_time(user) < Time.zone.now
   end
 
   def get_borrowing(user)
