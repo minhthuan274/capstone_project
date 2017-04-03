@@ -38,4 +38,10 @@ class Borrowing < ApplicationRecord
   def expired?
     self.due_time > Time.zone.now
   end
+
+  def deny_extend_book
+    self.time_extend = nil
+    self.request     = nil
+    self.save
+  end
 end

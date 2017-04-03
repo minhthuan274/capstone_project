@@ -6,7 +6,6 @@ class BorrowingsController < ApplicationController
   
 
   def index
-
   end
 
   def create
@@ -15,17 +14,16 @@ class BorrowingsController < ApplicationController
                                     book_id:  params[:book_id],
                                     due_time: Time.zone.now + 2.weeks)
       @book.borrowed
-      flash[:success] = "Requested."
+      flash[:success] = "Request borrow book has been sent"
       redirect_to @book
     else
       flash[:warning] = ""
-      redirect_to 
+      redirect_to root_url
     end
 
   end
 
   
-
   def update
     if current_user.admin?
       # verify borrow book
@@ -45,9 +43,15 @@ class BorrowingsController < ApplicationController
   end
 
   def destroy 
-    if current_user_admin? #only deny request borrow book and request extend
-      @borrowing.destroy
-      redirect_to root_url
+    if current_user_admin? 
+      if params[:verify_book]  # Deny request borrow book
+        @borrowing.destroy
+      elsif params[:extend_book] # Deny extend book 
+        @borrowing.deny_extend_book
+      else
+        flash[:warning] = "You did something wrong"
+      end
+  
     else
       if current_user?(User.find_by(id: params[:user_id]))
         @borrowing.destroy
