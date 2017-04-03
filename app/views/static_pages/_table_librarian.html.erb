@@ -17,23 +17,9 @@
         <td><%= Book.find_by(id: e.book_id).author %></td>
         <td><%= User.find_by(id: e.user_id).name %></td>
         <td><%= e.due_time %></td>
-        <td><%=  %></td>
-        <td>
-          <%= form_for e, method: :patch do |f| %>
-            <%= hidden_field_tag :verify, true %>
-            <%= hidden_field_tag :user_id, e.user_id %>
-            <%= hidden_field_tag :book_id, e.book_id %>
-            <%= f.submit "Approve", class: 'btn btn-primary' %>
-          <% end %>
-        </td>
-        <td>
-          <%= form_for e, method: :delete do |f| %>
-            <%= hidden_field_tag :deny_verify, true %>
-            <%= hidden_field_tag :user_id, e.user_id %>
-            <%= hidden_field_tag :book_id, e.book_id %>
-            <%= f.submit "Deny", class: 'btn btn-warning' %>
-          <% end %>
-        </td>
+        <td><%= e.request %></td>
+        <%= render 'shared/approve', object: e %>
+        <%= render 'shared/deny',    object: e%>
       </tr>
     <% end %>
   </tbody>

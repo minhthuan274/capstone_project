@@ -3,7 +3,7 @@ class CreateBorrowings < ActiveRecord::Migration[5.0]
     create_table :borrowings do |t|
       t.references :user, foreign_key: true
       t.references :book, foreign_key: true
-      t.datetime   :borrowed_time
+      t.integer    :time_extend
       t.datetime   :due_time
       t.boolean    :verified, default: false
       t.timestamps

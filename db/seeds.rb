@@ -24,7 +24,7 @@ end
   publisher    = Faker::Book.publisher
   quantity     = Faker::Number.between(1, 15)
   availability = quantity
-  year         = Faker::Number.between(-1, 2017)
+  year         = Faker::Number.between(0, 2017)
   Book.create!(title:      title,
               author:     author,
               publisher:  publisher,
@@ -32,3 +32,9 @@ end
               availability: availability,
               year:       year)
 end
+
+Borrowing.create!(
+                  user_id: 2,
+                  book_id: 1,
+                  verified: true,
+                  due_time: Time.zone.now - 2.weeks)

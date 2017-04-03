@@ -1,0 +1,12 @@
+        <td>
+          <%= form_for object, method: :patch do |f| %>
+            <% if object.request_verify_book? %>
+              <%= hidden_field_tag :verify_book, true %>    
+            <% else %>
+              <%= hidden_field_tag :extend_book, true %> 
+            <% end %>
+            <%= hidden_field_tag :user_id, object.user_id %>
+            <%= hidden_field_tag :book_id, object.book_id %>
+            <%= f.submit "Approve", class: 'btn btn-primary' %>
+          <% end %>
+        </td>

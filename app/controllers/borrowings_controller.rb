@@ -2,7 +2,6 @@ class BorrowingsController < ApplicationController
 
   before_action :logged_in?,            only: [:create, :update, :destroy]
   before_action :get_user_and_book,     only: [:create, :update, :destroy]
-  before_action :admin_user,            only: [:update]
   before_action :get_borrowing,         only: [:update, :destroy]
   
 
@@ -28,14 +27,19 @@ class BorrowingsController < ApplicationController
   
 
   def update
-    if params[:verify] 
-      @borrowing.verify_borrow_book
-      params[:verify] = nil
-    elsif params[:extend] 
-      @borrowing.extend_due_time(params[:due_time])
-      params[:extend] = nil
+    if current_user.admin?
+      # verify borrow book
+      if params[:verify_book] 
+        @borrowing.verify_borrow_book
+      # Send request extend time borrow books
+      elsif params[:extend_book] 
+        @borrowing.extend_due_time(@borrowing.time_extend)
+      end
+    elsif params[:request_extend]
+      @borrowing.update_request_extend(params[:extension_day])
+      params[:request_extend] = nil
     else
-      flash[:danger] = "You did something wrong!"    
+      flash[:danger] = "You did something wrong!"
     end
     redirect_to root_url
   end

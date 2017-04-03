@@ -1,5 +1,5 @@
 module BorrowingsHelper
   def get_borrowings
-    Borrowing.where("verified LIKE ?", false)
+    Borrowing.where.not(request: nil)
   end
 end
