@@ -5,6 +5,8 @@ class Borrowing < ApplicationRecord
   validates  :book_id, presence: true
 
   def verify_borrow_book
+    user = User.find_by(id: self.user_id)
+    user.borrow_book
     update_columns(verified: true,
                    request:  nil)
   end
@@ -16,19 +18,10 @@ class Borrowing < ApplicationRecord
       self.save
   end
 
-  def update_request_extend(extension_days)
-    days = extension_days.to_i
-    if self.times_extended == 3
-      flash[:warning] = "You extended 3 times. Not allow to extend once more." 
-    elsif days <= 0 
-      flash[:warning] = "Extension days should be greater than 0"
-    elsif days > 14 
-      flash[:warning] = "You can't extend more than 2 weeks."
-    else
+  def update_request_extend(days)
       self.time_extend = days
-      self.request = "Extend #{extension_days} days" 
+      self.request = "Extend #{days} days" 
       self.save
-    end
   end
 
   def request_verify_book?

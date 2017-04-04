@@ -14,6 +14,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 4 }, allow_nil: true
+  validates :number_borrowed_books, presence: true, length: { maximum: 5 }
 
 
   # Return the hash digest of the given string 
@@ -67,6 +68,18 @@ class User < ApplicationRecord
 
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  def available_to_borrow?
+    return false if self.number_borrowed_books == 5
+    self.borrowings.each do |e|
+      return false if e.expired?
+    end
+    return true
+  end
+
+  def borrow_book
+    number_borrowed_books += 1
   end
 
   private 
