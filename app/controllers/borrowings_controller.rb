@@ -1,6 +1,6 @@
 class BorrowingsController < ApplicationController
 
-  before_action :logged_in?,            only: [:create, :update, :destroy]
+  before_action :must_be_logged_in,     only: [:create, :update, :destroy]
   before_action :get_user_and_book,     only: [:create, :update, :destroy]
   before_action :get_borrowing,         only: [:update, :destroy]
   
@@ -101,5 +101,9 @@ class BorrowingsController < ApplicationController
         flash[:success] = "Request has been sent"
         @borrowing.update_request_extend(days)
       end
+    end
+
+    def must_be_logged_in
+      redirect_to login_path unless logged_in?
     end
 end
