@@ -1,0 +1,6 @@
+<td>
+  <%= form_tag(return_path, method: :delete) do %>
+    <%= hidden_field_tag :borrowing_id, object.id %>
+    <%= submit_tag "Return", class: "btn btn-primary" %>
+  <% end %>
+</td>

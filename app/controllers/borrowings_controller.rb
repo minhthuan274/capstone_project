@@ -1,9 +1,9 @@
 class BorrowingsController < ApplicationController
-
-  before_action :must_be_logged_in,     only: [:create, :update, :destroy]
+  
+  before_action :must_be_logged_in,     only: [:create, :update, :destroy, :return]
   before_action :get_user_and_book,     only: [:create, :update, :destroy]
   before_action :get_borrowing,         only: [:update, :destroy]
-  
+  before_action :admin_user,            only: [:return]
 
   def index
   end
@@ -13,7 +13,7 @@ class BorrowingsController < ApplicationController
       if current_user?(@user) and current_user.available_to_borrow? 
         @borrowing = Borrowing.create(user_id:  params[:user_id],
                                       book_id:  params[:book_id],
-                                      due_time: Time.zone.now + 2.weeks)
+                                      due_date: Time.zone.now + 2.weeks)
         @book.borrowed
         flash[:success] = "Request borrow book has been sent"
       else
@@ -28,20 +28,21 @@ class BorrowingsController < ApplicationController
   end
   
   def update
-    if current_user.admin?
+    if current_user_admin?
       # verify borrow book
       if params[:verify_book] 
         if @user.available_to_borrow? 
           @borrowing.verify_borrow_book
+          @user.borrow_book
         else
           flash[:danger] = "Can't approve request borrow this book"
         end
       # Send request extend time borrow books
       elsif params[:extend_book] 
-        @borrowing.extend_due_time(@borrowing.time_extend)
+        @borrowing.extend_due_date(@borrowing.time_extend)
       end
     # Non admin
-    elsif current_user(@user) && params[:request_extend]
+    elsif current_user?(@user) && params[:request_extend]
       check_extend_book(params[:extension_day])
     else
       flash[:danger] = "You did something wrong!"
@@ -53,6 +54,7 @@ class BorrowingsController < ApplicationController
     if current_user_admin? 
       if params[:verify_book]  # Deny request borrow book
         @borrowing.destroy
+        @book.return_book
       elsif params[:extend_book] # Deny extend book 
         @borrowing.deny_extend_book
       else
@@ -62,13 +64,24 @@ class BorrowingsController < ApplicationController
     else
       if current_user?(User.find_by(id: params[:user_id]))
         @borrowing.destroy
-        flash[:success] = "Your request has been cancel"
+        flash[:success] = "Your request has been canceled"
         redirect_to Book.find_by(id: params[:book_id])
       else
         flash[:danger] = "You did something you are not allowed."
         redirect_to root_url
       end
     end
+  end
+
+  def return
+    borrowing = Borrowing.find_by(id: params[:borrowing_id])
+    borrowing.destroy 
+    book = Book.find_by(id: borrowing.book_id)
+    user = User.find_by(id: borrowing.user_id)
+    user.return_book
+    book.return_book
+
+    redirect_back_or(root_path)
   end
 
 
@@ -85,14 +98,16 @@ class BorrowingsController < ApplicationController
 
     # Confirm the admin user.
     def admin_user
-      redirect_to root_url unless current_user.admin?
+      unless current_user_admin?
+        redirect_to root_path
+      end
     end
 
     def check_extend_book(extension_days)
       days = extension_days.to_i
 
       if @borrowing.times_extended == 3
-        flash[:warning] = "You extended 3 times. Not allow to extend once more." 
+        flash[:warning] = "You extended 3 times. Not allow to extend again." 
       elsif days <= 0 
         flash[:warning] = "Extension days should be greater than 0"
       elsif days > 14 
@@ -101,9 +116,12 @@ class BorrowingsController < ApplicationController
         flash[:success] = "Request has been sent"
         @borrowing.update_request_extend(days)
       end
-    end
+    end 
 
     def must_be_logged_in
-      redirect_to login_path unless logged_in?
+      unless logged_in?
+        store_location
+        redirect_to login_path 
+      end
     end
 end

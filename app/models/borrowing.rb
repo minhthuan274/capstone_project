@@ -6,22 +6,20 @@ class Borrowing < ApplicationRecord
 
   def verify_borrow_book
     user = User.find_by(id: self.user_id)
-    user.borrow_book
     update_columns(verified: true,
                    request:  nil)
   end
 
-  def extend_due_time(days_extend) 
-      update_columns(due_time:       self.due_time + days_extend.days,
+  def extend_due_date(days_extend) 
+      update_columns(due_date:       self.due_date + days_extend.days,
                      times_extended: self.times_extended + 1,
-                     request:        nil)
-      self.save
+                     request:        nil,
+                     time_extend:    nil,)
   end
 
   def update_request_extend(days)
-      self.time_extend = days
-      self.request = "Extend #{days} days" 
-      self.save
+      update_columns(time_extend: days,
+                     request:     "Extend " + days.to_s + " day".pluralize(days) )
   end
 
   def request_verify_book?
@@ -29,7 +27,7 @@ class Borrowing < ApplicationRecord
   end
 
   def expired?
-    self.due_time > Time.zone.now
+    self.due_date < Time.zone.now
   end
 
   def deny_extend_book

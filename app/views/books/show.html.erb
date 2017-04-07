@@ -57,7 +57,7 @@
       <% @book.borrowings.each do |f| %>
         <tr class="<%= 'danger' if @book.has_expired?(User.find(f.user_id)) %>">
           <td><%= link_to User.find(f.user_id).name %></td>
-          <td><%= f.due_time.strftime("%b %e %Y") %></td>
+          <td><%= f.due_date.strftime("%b %e %Y") %></td>
         </tr>
       <% end %>
     </tbody>

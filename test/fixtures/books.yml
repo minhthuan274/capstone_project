@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  tille: MyString
+hary :
+  title: Harry Potter
   publisher: MyString
   year: 1
-  user: one
+  availability: 10
 
-two:
-  tille: MyString
-  publisher: MyString
+bity:
+  title: Beasts 
+  publisher: publisher
   year: 1
-  user: two
+  availability: 1

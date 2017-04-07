@@ -75,11 +75,15 @@ class User < ApplicationRecord
     self.borrowings.each do |e|
       return false if e.expired?
     end
-    return true
+    true
   end
 
   def borrow_book
-    number_borrowed_books += 1
+    self.increment!(:number_borrowed_books)
+  end
+
+  def return_book
+    self.decrement!(:number_borrowed_books)
   end
 
   private 

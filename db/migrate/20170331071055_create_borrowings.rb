@@ -4,7 +4,7 @@ class CreateBorrowings < ActiveRecord::Migration[5.0]
       t.references :user, foreign_key: true
       t.references :book, foreign_key: true
       t.integer    :time_extend
-      t.datetime   :due_time
+      t.datetime   :due_date
       t.boolean    :verified, default: false
       t.timestamps
     end

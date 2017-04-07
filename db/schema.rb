@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20170404072937) do
     t.integer  "user_id"
     t.integer  "book_id"
     t.integer  "time_extend"
-    t.datetime "due_time"
+    t.datetime "due_date"
     t.boolean  "verified",       default: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false

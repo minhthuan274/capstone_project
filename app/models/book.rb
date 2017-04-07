@@ -18,8 +18,11 @@ class Book < ApplicationRecord
 
   # Cuon sach bi muon di, nen giam so luong lai 
   def borrowed
-    self.availability = self.availability - 1
-    self.save
+    self.decrement!(:availability)
+  end
+
+  def return_book
+    self.increment!(:availability)
   end
 
   def available?
@@ -29,7 +32,7 @@ class Book < ApplicationRecord
   # Get due time of
   def get_due_time(user)
     Borrowing.find_by(user_id: user.id, book_id: self.id)
-             .due_time
+             .due_date
   end
 
   # Checks this book, whichs be borrowed by user, has expried ?

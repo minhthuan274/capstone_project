@@ -1,26 +1,21 @@
-<h3>All books are being borrowed</h3>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Title</th>
       <th>Author</th>
-      <th>User</th>
       <th>Due date</th>
-      <th>Request</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <% @borrowings.each do |e| %>
+    <% object.each do |e| %>
       <tr>
-        <td><%= Book.find_by(id: e.book_id).title %></td>
+        <td= Book.find_by(id: e.book_id).title %></td>
         <td><%= Book.find_by(id: e.book_id).author %></td>
         <td><%= User.find_by(id: e.user_id).name %></td>
         <td><%= e.due_date %></td>
-        <td><%= e.request %></td>
-        <%= render 'shared/approve', object: e %>
-        <%= render 'shared/deny',    object: e%>
+        <%= render 'shared/return', object: e %>
       </tr>
     <% end %>
   </tbody>
-</table>    
+</table>

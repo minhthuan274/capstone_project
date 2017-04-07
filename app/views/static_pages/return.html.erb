@@ -1,0 +1,19 @@
+<h2 class="text-center">Return book</h3>
+
+<%= form_tag return_path, method: :get, class: 'form-inline' do %>
+  <div class="form-group">
+    <label>Enter user id: </label>
+    <div class="input-group">
+      <input name="search_user_id" id="search_user_id" class="form-control" type="number">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+<% end %>
+
+<% unless @user.nil? %>
+    <% if @borrowings.count == 0 %>
+        <h4><%= @user.name %> doesn't borrow any books</h4>
+    <% else %>
+        <%= render 'shared/table_return', object: @borrowings %>
+    <% end %>
+<% end %>

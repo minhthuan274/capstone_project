@@ -5,7 +5,7 @@
   <td><%= book.year %></td>
   <td><%= book.availability %></td>
 
-  <% if current_user.admin? %>
+  <% if current_user_admin? %>
     <td>
       <%= link_to "Edit", edit_book_path(book), class: 'btn btn-primary' %>
     </td>

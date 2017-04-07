@@ -18,7 +18,7 @@ User.create!(name:  "Minh Thuan",
                activated_at: Time.zone.now)
 end
 
-69.times do |n|
+100.times do |n|
   title        = Faker::Book.title
   author       = Faker::Book.author
   publisher    = Faker::Book.publisher
@@ -33,8 +33,3 @@ end
               year:       year)
 end
 
-Borrowing.create!(
-                  user_id: 2,
-                  book_id: 1,
-                  verified: true,
-                  due_time: Time.zone.now - 2.weeks)
