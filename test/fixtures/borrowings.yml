@@ -7,7 +7,7 @@ borrowing:
   request: null
 
 borrowing_max_extend:
-  user: borrow_max_user
+  user: user_max_borrow
   book: book
   verified: true 
   due_date: <%= Time.zone.now + 2.weeks %>

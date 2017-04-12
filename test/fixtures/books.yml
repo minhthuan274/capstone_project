@@ -3,11 +3,15 @@
 book :
   title: Harry Potter
   publisher: MyString
+  author: Thuan
   year: 1
   availability: 10
+  quantity: 10
 
 book_not_available:
   title: Beasts 
   publisher: publisher
+  author: Thuan
   year: 1
   availability: 0
+  quantity: 10

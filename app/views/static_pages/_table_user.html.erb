@@ -11,7 +11,7 @@
   <tbody>
     <% @books.each do |book| %>
       <tr class="<%= 'danger' if book.has_expired?(current_user) %>">
-        <td><%= book.title %></td>
+        <td><%= link_to book.title, book %></td>
         <td><%= book.author %></td>
         <td><%= book.get_due_time(current_user) %></td>
         <% if book.has_expired?(current_user) %>

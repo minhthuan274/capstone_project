@@ -15,7 +15,7 @@ user:
   activated_at: <%= Time.zone.now %>
   number_borrowed_books: 0 
 
-borrow_max_user:
+user_max_borrow:
   name: Thanh Binh
   email: binh@example.com
   password_digest: <%= User.digest('password') %>
