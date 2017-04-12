@@ -28,8 +28,11 @@ class StaticPagesController < ApplicationController
     store_location
   end
 
-  private
-    def admin_user
-      redirect_to root_url unless current_user.admin?
-    end
+  private 
+     def admin_user
+        unless current_user_admin? 
+          flash[:danger] = "You're not admin user!"
+          redirect_to root_url
+        end
+  end
 end

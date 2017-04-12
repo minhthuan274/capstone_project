@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-hary :
+book :
   title: Harry Potter
   publisher: MyString
   year: 1
   availability: 10
 
-bity:
+book_not_available:
   title: Beasts 
   publisher: publisher
   year: 1
-  availability: 1
+  availability: 0

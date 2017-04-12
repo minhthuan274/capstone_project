@@ -17,7 +17,7 @@
             <% end %>
         <% else %>
             <% if @book.available? %>
-              <%= render 'borrow' %>
+              <%= render 'shared/borrow' %>
             <% end %>
         <% end %>
       <% else %>

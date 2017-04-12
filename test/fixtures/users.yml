@@ -1,4 +1,12 @@
-thuan:
+lib:
+  name: Lib 
+  email: lib123@lib.com
+  password_digest: <%= User.digest('password') %>
+  admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
+
+user:
   name: Minh Thuan
   email: thuan@example.com
   password_digest: <%= User.digest('password') %>
@@ -7,7 +15,7 @@ thuan:
   activated_at: <%= Time.zone.now %>
   number_borrowed_books: 0 
 
-binh:
+borrow_max_user:
   name: Thanh Binh
   email: binh@example.com
   password_digest: <%= User.digest('password') %>
@@ -15,15 +23,15 @@ binh:
   activated_at: <%= Time.zone.now %>
   number_borrowed_books: 5 
 
-trang:
+user_should_extend:
   name: Thuy Trang
   email: trang@example.com
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  number_borrowed_books: 0 
+  number_borrowed_books: 1 
 
-archer:
+owed_user:
   name: Sterling Archer
   email: duchess@example.gov
   password_digest: <%= User.digest('password') %>

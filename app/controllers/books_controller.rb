@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   before_action :admin_user,     only: [:new, :create, :edit, 
                                               :update, :destroy]
 
-  before_action :get_book,               only: [:show, :edit, :update, :destroy]
+  before_action :get_book,       only: [:show, :edit, :update, :destroy]
 
 
   def index
@@ -55,14 +55,6 @@ class BooksController < ApplicationController
   end
 
   private 
-
-    def admin_user
-      unless current_user.admin?
-        flash[:danger] = "You's not got enouch permision to do it."
-        redirect_to root_url
-      end
-    end
-
     def book_params
       params.require(:book).permit(:title, :year, :publisher, :author, :quantity)
     end
@@ -70,4 +62,11 @@ class BooksController < ApplicationController
     def get_book
       @book = Book.find(params[:id])
     end
+
+    def admin_user
+      unless current_user_admin? 
+        flash[:danger] = "You're not admin user!"
+        redirect_to root_url
+      end
+  end
 end

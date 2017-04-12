@@ -10,9 +10,8 @@
   <tbody>
     <% object.each do |e| %>
       <tr>
-        <td= Book.find_by(id: e.book_id).title %></td>
+        <td><%= Book.find_by(id: e.book_id).title %></td>
         <td><%= Book.find_by(id: e.book_id).author %></td>
-        <td><%= User.find_by(id: e.user_id).name %></td>
         <td><%= e.due_date %></td>
         <%= render 'shared/return', object: e %>
       </tr>

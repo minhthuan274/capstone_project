@@ -1,0 +1,22 @@
+borrowing:
+  user: owed_user
+  book: book 
+  verified: true 
+  due_date: <%= Time.zone.now + 2.weeks %>
+  times_extended: 0
+  request: null
+
+borrowing_max_extend:
+  user: borrow_max_user
+  book: book
+  verified: true 
+  due_date: <%= Time.zone.now + 2.weeks %>
+  request: null
+  times_extended: 3
+borrowing_extend:
+  user: user_should_extend
+  book: book  
+  verified: true 
+  due_date: <%= Time.zone.now - 2.weeks %>
+  request: null
+  times_extended: 0

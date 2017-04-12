@@ -6,6 +6,7 @@ class Book < ApplicationRecord
   validates  :year,     presence: true, numericality: { greater_than: 0, 
                                                         less_than:    2017 }
   validates  :quantity, presence: true, numericality: { greater_than: 0 }
+  validates  :author,   presence: true
 
 
   def self.search(search)

@@ -1,5 +1,5 @@
 <%= form_for(object, method: :delete) do |f| %>
   <%= hidden_field_tag :user_id, object.user_id %>
   <%= hidden_field_tag :book_id, object.book_id %>
-  <%= f.submit "Cancel", class: "btn btn-warning" %>
+  <%= f.submit "Cancel", class: "btn btn-warning cancel-btn" %>
 <% end %>

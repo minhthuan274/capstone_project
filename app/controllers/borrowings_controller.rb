@@ -21,7 +21,7 @@ class BorrowingsController < ApplicationController
       end
       redirect_to @book
     else
-      flash[:warning] = ""
+      flash[:warning] = "This book is not available"
       redirect_to root_url
     end
 
@@ -64,6 +64,7 @@ class BorrowingsController < ApplicationController
     else
       if current_user?(User.find_by(id: params[:user_id]))
         @borrowing.destroy
+        @book.return_book
         flash[:success] = "Your request has been canceled"
         redirect_to Book.find_by(id: params[:book_id])
       else
@@ -96,13 +97,6 @@ class BorrowingsController < ApplicationController
                                      book_id: params[:book_id])
     end
 
-    # Confirm the admin user.
-    def admin_user
-      unless current_user_admin?
-        redirect_to root_path
-      end
-    end
-
     def check_extend_book(extension_days)
       days = extension_days.to_i
 
@@ -124,4 +118,10 @@ class BorrowingsController < ApplicationController
         redirect_to login_path 
       end
     end
+    def admin_user
+      unless current_user_admin? 
+        flash[:danger] = "You're not admin user!"
+        redirect_to root_url
+      end
+  end
 end
