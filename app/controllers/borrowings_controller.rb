@@ -69,9 +69,9 @@ class BorrowingsController < ApplicationController
         redirect_to Book.find_by(id: params[:book_id])
       else
         flash[:danger] = "You did something you are not allowed."
-        redirect_to root_url
       end
     end
+    redirect_to root_url
   end
 
   def return
@@ -123,5 +123,5 @@ class BorrowingsController < ApplicationController
         flash[:danger] = "You're not admin user!"
         redirect_to root_url
       end
-  end
+    end
 end

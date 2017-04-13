@@ -10,7 +10,14 @@ user:
   name: Minh Thuan
   email: thuan@example.com
   password_digest: <%= User.digest('password') %>
-  admin: true
+  activated: true
+  activated_at: <%= Time.zone.now %>
+  number_borrowed_books: 0 
+
+other:
+  name: Minh Thuan
+  email: thuan274@example.com
+  password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
   number_borrowed_books: 0 
@@ -37,7 +44,7 @@ owed_user:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
-  number_borrowed_books: 0 
+  number_borrowed_books: 1
 
 <% 30.times do |n| %>
 user_<%= n %>:
