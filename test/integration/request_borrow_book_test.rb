@@ -2,15 +2,17 @@ require 'test_helper'
 
 class RequestBorrowBookTest < ActionDispatch::IntegrationTest
   def setup
-    @lib   = users(:lib)
-    @user  = users(:user)
-    @other = users(:other)
-    @user_max_borrow  = users(:user_max_borrow)
-    @user_extend = users(:user_should_extend)
-    @book  = books(:book)
-    @book2 = books(:book2)
-    @book_not_available  = books(:book_not_available)
-    @borrowing = borrowings(:borrowing)
+    @lib                  = users(:lib)
+    @user                 = users(:user)
+    @other                = users(:other)
+    @user_max_borrow      = users(:user_max_borrow)
+    @user_extend          = users(:user_should_extend)
+
+    @book                 = books(:book)
+    @book2                = books(:book2)
+    @book_not_available   = books(:book_not_available)
+    
+    @borrowing            = borrowings(:borrowing)
     @borrowing_max_extend = borrowings(:borrowing_max_extend)
   end  
 

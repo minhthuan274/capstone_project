@@ -16,7 +16,7 @@
         <td><%= book.get_due_time(current_user) %></td>
         <% if book.has_expired?(current_user) %>
           <td>
-            <% if book.get_borrowing(current_user).time_extend  %>
+            <% if !book.get_borrowing(current_user).request.nil? %>
               Waiting approving from librarian
             <% else %>
               <%= render 'shared/extend', object: book.get_borrowing(current_user) %>
