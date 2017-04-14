@@ -45,6 +45,6 @@ class ReturnBookTest < ActionDispatch::IntegrationTest
       delete return_path, params: { borrowing_id: borrowing1.id}
     end
     follow_redirect!
-    assert_select 'td', 'book 2', false
+    assert_template 'static_pages/return'
   end
 end
