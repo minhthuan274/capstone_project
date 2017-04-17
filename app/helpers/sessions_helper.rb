@@ -59,6 +59,7 @@ module SessionsHelper
   end
 
   def current_user?(user)
+    return false unless logged_in?
     current_user.id == user.id
   end
 end
