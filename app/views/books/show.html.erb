@@ -1,43 +1,37 @@
 <% provide(:title, @book.title) %>
+<h1>Book Detail</h1>
 <div class="book-detail">
-  <div class="row">
-    <div class="col-md-4">
-      <section class="book-cover">
-        <div class="rectangle"></div>
-      </section>
-      
-      <% if logged_in? %>
-      <% unless current_user_admin? %>
-        <% if borrowing = Borrowing.find_by(user_id: current_user.id, 
-                                            book_id: current_book.id) %>
-            <% if !borrowing.verified? %>
-                <%= render 'shared/cancel', object: borrowing %>
-            <% elsif @book.has_expired?(current_user) %>
-                <%= render 'shared/extend', object: borrowing %>
-            <% end %>
-        <% else %>
-            <% if @book.available? %>
-              <%= render 'shared/borrow' %>
-            <% end %>
-        <% end %>
+  <div class="bk-image" >
+    <img src="http://interactivejoe.com/book-viewer/assets/images/bk_1-large.jpg" alt="Book Cover">
+    <div class="back-color" style="background-color: rgb(252, 194, 120);"></div>
+  </div>
+  <div class="bk-desc">
+    <h2 class="bk-title"> <%=@book.title%> </h2>
+    <p class="author"> by <%=@book.author%> </p>
+    <p class="published"> <%= @book.year %></p>
+    <p class="synopsis">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam luctus convallis sem. Nunc sed tristique augue. Aenean at nulla vel lacus volutpat bibendum vitae ut nibh. Aliquam eu metus et purus rutrum malesuada. Aenean in auctor mauris, non vulputate libero. Nullam auctor, purus ut cursus convallis, lectus tellus dignissim lectus, id tempor ipsum leo ut nulla. Vestibulum vitae elit erat.
+    </p>
+    <p>Available: <%= @book.availability %></p>
+
+    <% if logged_in? %>
+    <% unless current_user_admin? %>
+      <% if borrowing = Borrowing.find_by(user_id: current_user.id,
+                                          book_id: current_book.id) %>
+          <% if !borrowing.verified? %>
+              <%= render 'shared/cancel', object: borrowing %>
+          <% elsif @book.has_expired?(current_user) %>
+              <%= render 'shared/extend', object: borrowing %>
+          <% end %>
       <% else %>
-        <%= link_to "Edit this book", edit_book_path, class: 'btn btn-primary' %>
+          <% if @book.available? %>
+            <%= render 'shared/borrow' %>
+          <% end %>
       <% end %>
-      <% end %>
-
-
-    </div>
-
-    <div class="col-md-8">
-      <section class="book-info">
-        <h4> <%=@book.title%> </h4> 
-        <p> by the <%=@book.author%> </p>
-      </section>
-
-      <section class="">
-        Available: <%= @book.availability %>
-      </section>
-    </div>
+    <% else %>
+      <%= link_to "Edit this book", edit_book_path, class: 'btn btn-primary' %>
+    <% end %>
+    <% end %>
   </div>
 </div>
 
@@ -46,22 +40,22 @@
     <h4>No one has borrowed this book.</h4>
   <% else %>
   <h3>People are borrowing this book</h3>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Due Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @book.borrowings.each do |f| %>
-        <tr class="<%= 'danger' if @book.has_expired?(User.find(f.user_id)) %>">
-          <td><%= link_to User.find(f.user_id).name %></td>
-          <td><%= f.due_date.strftime("%b %e %Y") %></td>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Due Time</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table> 
-  <% end %>       
+      </thead>
+      <tbody>
+        <% @book.borrowings.each do |f| %>
+          <tr class="<%= 'danger' if @book.has_expired?(User.find(f.user_id)) %>">
+            <td><%= link_to User.find(f.user_id).name %></td>
+            <td><%= f.due_date.strftime("%b %e %Y") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
 

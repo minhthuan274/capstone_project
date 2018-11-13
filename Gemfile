@@ -8,7 +8,7 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails',                   '~> 5.0.2'
-gem 'puma',                    '3.4.0'
+gem 'puma',                    '~> 3.12'
 gem 'sass-rails',              '5.0.6'
 gem 'uglifier',                '3.0.0'
 gem 'coffee-rails',            '4.2.1'
@@ -29,6 +29,7 @@ gem 'materialize-sass'
 group :development, :test do
   gem 'sqlite3', '1.3.12'
   gem 'byebug',  '9.0.0', platform: :mri
+  gem "rails-erd", '1.5.0'
 end
 
 group :development do
