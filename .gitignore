@@ -24,4 +24,4 @@ coverage
 
 # Ignore application configuration
 /config/application.yml
-*.sqlite3
+db/development.sqlite3
