@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20181126151250) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "books", force: :cascade do |t|
     t.string   "title"
     t.string   "publisher"
@@ -35,9 +38,9 @@ ActiveRecord::Schema.define(version: 20181126151250) do
     t.datetime "updated_at",                        null: false
     t.integer  "times_extended", default: 0
     t.string   "request",        default: "Verify"
-    t.index ["book_id"], name: "index_borrowings_on_book_id"
-    t.index ["user_id", "book_id"], name: "index_borrowings_on_user_id_and_book_id", unique: true
-    t.index ["user_id"], name: "index_borrowings_on_user_id"
+    t.index ["book_id"], name: "index_borrowings_on_book_id", using: :btree
+    t.index ["user_id", "book_id"], name: "index_borrowings_on_user_id_and_book_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_borrowings_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,7 +57,9 @@ ActiveRecord::Schema.define(version: 20181126151250) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.integer  "number_borrowed_books", default: 0
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
+  add_foreign_key "borrowings", "books"
+  add_foreign_key "borrowings", "users"
 end

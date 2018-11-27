@@ -24,9 +24,9 @@ gem 'carrierwave', '~> 1.2', '>= 1.2.3'
 gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'figaro'
 gem 'materialize-sass'
+gem 'pg', '0.18.4'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.12'
   gem 'byebug',  '9.0.0', platform: :mri
   gem "rails-erd", '1.5.0'
 end
@@ -46,7 +46,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '0.18.4'
   gem 'fog', '~> 2.1'
 end
 

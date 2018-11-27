@@ -2,7 +2,8 @@
 <h1>Book Detail</h1>
 <div class="book-detail">
   <div class="bk-image" >
-    <img src="http://interactivejoe.com/book-viewer/assets/images/bk_1-large.jpg" alt="Book Cover">
+    <%= image_tag @book.cover.url if @book.cover? %>
+    <%= image_tag @book.cover.default_url unless @book.cover? %>
     <div class="back-color" style="background-color: rgb(252, 194, 120);"></div>
   </div>
   <div class="bk-desc">
