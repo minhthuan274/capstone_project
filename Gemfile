@@ -25,6 +25,7 @@ gem 'mini_magick', '~> 4.9', '>= 4.9.2'
 gem 'figaro'
 gem 'materialize-sass'
 gem 'pg', '0.18.4'
+gem 'fog-aws', '~> 3.3'
 
 group :development, :test do
   gem 'byebug',  '9.0.0', platform: :mri
@@ -45,9 +46,9 @@ group :test do
   gem 'guard-minitest',           '2.4.4'
 end
 
-group :production do
-  gem 'fog', '~> 2.1'
-end
+# group :production do
+#   gem "fog-aws"
+# end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
