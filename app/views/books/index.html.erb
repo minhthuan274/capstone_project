@@ -3,22 +3,32 @@
 <section>
   <h1>All books</h1>
   <%= link_to 'Add book', new_book_path, class: 'btn btn-success' %>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>Title</th>
-        <th>Publisher</th>
-        <th>Year</th>
-        <th>Availability</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <%= render @books %>
-    </tbody>
-  </table>
-  <%= will_paginate %>
 </section>
+<div class="grid-shuffle padding-lr-60 padding-top-30">
+    <ul class="row" id="grid">
+
+    <% @books.each do |book| %>
+      <li class="columns book-item col-md-4 " data-color='#fcc278' >
+        <div class="bk-img">
+          <div class="bk-wrapper">
+            <div class="bk-book bk-bookdefault">
+              <div class="bk-front">
+                <%= image_tag(book.cover.url, class:"bk-cover") if book.cover? %>
+                <%= image_tag(book.cover.default_url, class: "bk-cover") unless book.cover? %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item-details">
+          <h3 class="book-item_title"><%= book.title %> </h3>
+          <p class="author">by <%= book.author %> &bull; <%= book.year %></p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tellus nisi, eget pulvinar in, molestie et arcu.</p>
+        </div>
+      </li>
+
+    <% end %>
+    </ul>
+</div>
+         
+<%= will_paginate %>
+

@@ -10,7 +10,7 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.search(params[:search]).paginate(page: params[:page],
-                                                   per_page: 10)
+                                                   per_page: 9)
   end
 
   def show
